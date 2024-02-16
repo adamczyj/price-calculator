@@ -1,8 +1,10 @@
-import { RequiredServicesMap } from "../types";
+import { RequiredServicesMap, ServiceType } from "../types";
 
-export const ServicesConfig: RequiredServicesMap = {
-    BlurayPackage: { requiredServices: ["VideoRecording"] },
-    TwoDayEvent: { requiredServices: ["Photography", "VideoRecording"] },
-    Photography: { dependentServices: ["TwoDayEvent"] },
-    VideoRecording: { dependentServices: ["BlurayPackage", "TwoDayEvent"] },
-  };
+const ServicesConfig: RequiredServicesMap = {
+  BlurayPackage: { requiredServices: ["VideoRecording"] },
+  TwoDayEvent: { requiredServices: ["Photography", "VideoRecording"] },
+  Photography: { dependentServices: ["TwoDayEvent"] },
+  VideoRecording: { dependentServices: ["BlurayPackage", "TwoDayEvent"] },
+};
+
+export const getServiceConfig = (service: ServiceType) => ServicesConfig[service];

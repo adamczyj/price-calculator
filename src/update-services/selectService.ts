@@ -1,4 +1,4 @@
-import { ServicesConfig } from "../config/services";
+import { getServiceConfig } from "../config/services";
 import { ServiceType } from "../types";
 
 export const selectService = (
@@ -9,7 +9,7 @@ export const selectService = (
     return previouslySelectedServices;
   }
 
-  const requiredServices = ServicesConfig[service]?.requiredServices;
+  const requiredServices = getServiceConfig(service)?.requiredServices;
   if (
     !anyRequiredServicesSelected(requiredServices, previouslySelectedServices)
   ) {

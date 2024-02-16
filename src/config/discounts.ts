@@ -1,6 +1,6 @@
-import { ServiceYearDiscounts } from "../types";
+import { ServiceYear, ServiceYearDiscounts } from "../types";
 
-export const Discounts: Readonly<ServiceYearDiscounts> = {
+const discounts: Readonly<ServiceYearDiscounts> = {
     2020: [
       {
         discountedServicesPackage: ["VideoRecording", "Photography"],
@@ -40,3 +40,5 @@ export const Discounts: Readonly<ServiceYearDiscounts> = {
       },
     ],
   };
+
+  export const getDiscounts = (year: ServiceYear) => discounts[year];

@@ -1,6 +1,6 @@
-import { ServiceYearPrices } from "../types";
+import { ServiceYear, ServiceYearPrices } from "../types";
 
-export const Prices: Readonly<ServiceYearPrices> = {
+const prices: Readonly<ServiceYearPrices> = {
     2020: {
       Photography: 1700,
       VideoRecording: 1700,
@@ -23,3 +23,5 @@ export const Prices: Readonly<ServiceYearPrices> = {
       WeddingSession: 600,
     },
   };
+
+export const getPrices = (year: ServiceYear) => prices[year];
