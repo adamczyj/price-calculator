@@ -7,19 +7,18 @@ export type ServiceType =
   | "TwoDayEvent"
   | "WeddingSession";
 
-type ServiceConfig = {
+export type ServicePrice = Record<ServiceType, number>;
+export type ServiceYearPrices = Record<ServiceYear, ServicePrice>;
+
+export type ServiceConfig = {
   dependentServices?: ServiceType[];
   anyRequiredServices?: ServiceType[];
 };
-
-export type RequiredServicesMap = Partial<Record<ServiceType, ServiceConfig>>;
-export type ServicePrice = Record<ServiceType, number>;
-export type ServiceYearPrices = Record<ServiceYear, ServicePrice>;
+export type ServiceConfigs = Partial<Record<ServiceType, ServiceConfig>>;
 
 export type DiscountRule = {
   discountedServicesPackage: ServiceType[];
   discount: number;
   anyServicesRequiredForDiscount?: ServiceType[];
 };
-export type ServiceDiscountRules = Partial<Record<ServiceType, number>>;
 export type ServiceYearDiscounts = Partial<Record<ServiceYear, DiscountRule[]>>;

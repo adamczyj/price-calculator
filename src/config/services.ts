@@ -1,6 +1,6 @@
-import { RequiredServicesMap, ServiceType } from "../types";
+import { ServiceConfigs, ServiceType } from "../types";
 
-const servicesConfig: RequiredServicesMap = {
+const servicesConfig: ServiceConfigs = {
   BlurayPackage: { anyRequiredServices: ["VideoRecording"] },
   TwoDayEvent: { anyRequiredServices: ["Photography", "VideoRecording"] },
   Photography: { dependentServices: ["TwoDayEvent"] },
