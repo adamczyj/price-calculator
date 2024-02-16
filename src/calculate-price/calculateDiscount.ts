@@ -44,10 +44,10 @@ const calculateDiscountForServicesPackage = (
   servicesPackagesDiscount: Map<string, number>
 ) => {
   const discountedServicesPackageKey = getServicesPackageMapKey(discountRule);
-  const discountForServicePackage =
+  const discountForServicesPackage =
     servicesPackagesDiscount.get(discountedServicesPackageKey) ?? 0;
 
-  if (discountRule.discount > discountForServicePackage) {
+  if (discountRule.discount > discountForServicesPackage) {
     servicesPackagesDiscount.set(
       discountedServicesPackageKey,
       discountRule.discount

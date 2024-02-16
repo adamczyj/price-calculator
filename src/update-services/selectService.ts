@@ -9,9 +9,9 @@ export const selectService = (
     return previouslySelectedServices;
   }
 
-  const requiredServices = getServiceConfig(service)?.anyRequiredServices;
+  const anyRequiredServices = getServiceConfig(service)?.anyRequiredServices;
   if (
-    !anyRequiredServiceSelected(requiredServices, previouslySelectedServices)
+    !anyRequiredServiceSelected(anyRequiredServices, previouslySelectedServices)
   ) {
     return previouslySelectedServices;
   }
@@ -20,14 +20,14 @@ export const selectService = (
 };
 
 const anyRequiredServiceSelected = (
-  requiredServices: ServiceType[],
+  anyRequiredServices: ServiceType[],
   selectedServices: ServiceType[]
 ) => {
-  if (!requiredServices?.length) {
+  if (!anyRequiredServices?.length) {
     return true;
   }
 
-  return requiredServices.some((requiredService) =>
+  return anyRequiredServices.some((requiredService) =>
     selectedServices.includes(requiredService)
   );
 };
