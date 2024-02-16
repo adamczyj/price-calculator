@@ -9,9 +9,9 @@ export const selectService = (
     return previouslySelectedServices;
   }
 
-  const requiredServices = getServiceConfig(service)?.requiredServices;
+  const requiredServices = getServiceConfig(service)?.anyRequiredServices;
   if (
-    !anyRequiredServicesSelected(requiredServices, previouslySelectedServices)
+    !anyRequiredServiceSelected(requiredServices, previouslySelectedServices)
   ) {
     return previouslySelectedServices;
   }
@@ -19,7 +19,7 @@ export const selectService = (
   return [...previouslySelectedServices, service];
 };
 
-const anyRequiredServicesSelected = (
+const anyRequiredServiceSelected = (
   requiredServices: ServiceType[],
   selectedServices: ServiceType[]
 ) => {

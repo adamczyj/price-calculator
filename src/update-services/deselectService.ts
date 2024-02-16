@@ -10,30 +10,42 @@ export const deselectService = (
   }
 
   const dependentServices = getServiceConfig(service)?.dependentServices;
-
   if (dependentServices) {
-    const servicesToDeselect = getServicesToDeselect(
+    return deselectServiceWithDependencies(
       dependentServices,
       previouslySelectedServices,
       service
-    );
-    return previouslySelectedServices.filter(
-      (s) => !servicesToDeselect.includes(s)
     );
   }
 
   return previouslySelectedServices.filter((s) => s !== service);
 };
 
-const getServicesToDeselect = (
+const deselectServiceWithDependencies = (
   dependentServices: ServiceType[],
   selectedServices: ServiceType[],
-  service: ServiceType
+  deselectedService: ServiceType
 ) => {
-  const servicesToDeselect = [service];
+  const dependentServicesToDeselect = getDependentServicesToDeselect(
+    dependentServices,
+    selectedServices,
+    deselectedService
+  );
+
+  return selectedServices.filter(
+    (s) => s !== deselectedService && !dependentServicesToDeselect.includes(s)
+  );
+};
+
+const getDependentServicesToDeselect = (
+  dependentServices: ServiceType[],
+  selectedServices: ServiceType[],
+  deselectedService: ServiceType
+) => {
+  const servicesToDeselect = [];
   for (const dependentService of dependentServices) {
     if (
-      requiredServicesDeselected(dependentService, selectedServices, service)
+      !anyRequiredServiceSelected(dependentService, selectedServices, deselectedService)
     ) {
       servicesToDeselect.push(dependentService);
     }
@@ -42,20 +54,18 @@ const getServicesToDeselect = (
   return servicesToDeselect;
 };
 
-const requiredServicesDeselected = (
+const anyRequiredServiceSelected = (
   dependentService: ServiceType,
   selectedServices: ServiceType[],
-  service: ServiceType
+  deselectedService: ServiceType
 ) => {
-  const requiredServices = getServiceConfig(dependentService)?.requiredServices;
-
+  const requiredServices = getServiceConfig(dependentService)?.anyRequiredServices;
   if (!requiredServices?.length) {
-    return false;
+    return true;
   }
 
-  const anyRequiredServiceSelected = selectedServices.some(
-    (s) => s !== service && requiredServices.includes(s)
+  // We need to remember that we are deselecting deselectedService so we need to ignore it here.
+  return selectedServices.some(
+    (s) => s !== deselectedService && requiredServices.includes(s)
   );
-
-  return !anyRequiredServiceSelected;
 };

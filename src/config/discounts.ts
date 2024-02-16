@@ -9,7 +9,7 @@ const discounts: Readonly<ServiceYearDiscounts> = {
       {
         discountedServicesPackage: ["WeddingSession"],
         discount: 300,
-        requiredForDiscount: ["Photography", "VideoRecording"],
+        anyServicesRequiredForDiscount: ["Photography", "VideoRecording"],
       },
     ],
     2021: [
@@ -20,7 +20,7 @@ const discounts: Readonly<ServiceYearDiscounts> = {
       {
         discountedServicesPackage: ["WeddingSession"],
         discount: 300,
-        requiredForDiscount: ["Photography", "VideoRecording"],
+        anyServicesRequiredForDiscount: ["Photography", "VideoRecording"],
       },
     ],
     2022: [
@@ -31,12 +31,12 @@ const discounts: Readonly<ServiceYearDiscounts> = {
       {
         discountedServicesPackage: ["WeddingSession"],
         discount: 300,
-        requiredForDiscount: ["VideoRecording"],
+        anyServicesRequiredForDiscount: ["VideoRecording"],
       },
       {
         discountedServicesPackage: ["WeddingSession"],
         discount: 600,
-        requiredForDiscount: ["Photography"],
+        anyServicesRequiredForDiscount: ["Photography"],
       },
     ],
   };

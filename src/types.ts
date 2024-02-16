@@ -9,7 +9,7 @@ export type ServiceType =
 
 type ServiceConfig = {
   dependentServices?: ServiceType[];
-  requiredServices?: ServiceType[];
+  anyRequiredServices?: ServiceType[];
 };
 
 export type RequiredServicesMap = Partial<Record<ServiceType, ServiceConfig>>;
@@ -19,7 +19,7 @@ export type ServiceYearPrices = Record<ServiceYear, ServicePrice>;
 export type DiscountRule = {
   discountedServicesPackage: ServiceType[];
   discount: number;
-  requiredForDiscount?: ServiceType[];
+  anyServicesRequiredForDiscount?: ServiceType[];
 };
 export type ServiceDiscountRules = Partial<Record<ServiceType, number>>;
 export type ServiceYearDiscounts = Partial<Record<ServiceYear, DiscountRule[]>>;

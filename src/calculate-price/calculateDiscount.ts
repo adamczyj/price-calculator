@@ -10,7 +10,7 @@ export const calculateDiscount = (
       continue;
     }
 
-    calculateDiscountForRule(discountRule, servicesPackagesDiscount);
+    calculateDiscountForServicesPackage(discountRule, servicesPackagesDiscount);
   }
 
   return sumDiscounts(servicesPackagesDiscount);
@@ -30,8 +30,8 @@ const discountCanBeApplied = (
   }
 
   const anyRequiredServiceSelected =
-    !discountRule.requiredForDiscount?.length ||
-    discountRule.requiredForDiscount.some((x) => selectedServices.includes(x));
+    !discountRule.anyServicesRequiredForDiscount?.length ||
+    discountRule.anyServicesRequiredForDiscount.some((x) => selectedServices.includes(x));
 
   return anyRequiredServiceSelected;
 };
@@ -39,7 +39,7 @@ const discountCanBeApplied = (
 const getServicesPackageMapKey = (discountRule: DiscountRule) =>
   discountRule.discountedServicesPackage.sort().join("__");
 
-const calculateDiscountForRule = (
+const calculateDiscountForServicesPackage = (
   discountRule: DiscountRule,
   servicesPackagesDiscount: Map<string, number>
 ) => {
