@@ -1,63 +1,40 @@
-import { DiscountRule, ServiceType } from "../types";
+import { DiscountRule, ServiceType, ServicesPackageDiscounts } from "../types";
 
 export const calculateDiscount = (
   selectedServices: ServiceType[],
   discountRules: DiscountRule[]
 ) => {
-  const servicesPackagesDiscount: Map<string, number> = new Map();
+  const discounts: ServicesPackageDiscounts = {};
   for (let discountRule of discountRules) {
-    if (!discountCanBeApplied(discountRule, selectedServices)) {
+    if (!allServicesFromPackageSelected(discountRule, selectedServices)) {
       continue;
     }
 
-    calculateDiscountForServicesPackage(discountRule, servicesPackagesDiscount);
+    const discountForDiscountType =
+      discounts[discountRule.type] ?? 0;
+
+    if (discountRule.discount > discountForDiscountType) {
+      discounts[discountRule.type] = discountRule.discount;
+    }
   }
 
-  return sumDiscounts(servicesPackagesDiscount);
+  return sumDiscounts(discounts);
 };
 
-const discountCanBeApplied = (
+const allServicesFromPackageSelected = (
   discountRule: DiscountRule,
   selectedServices: ServiceType[]
 ) => {
-  const allDiscountedServicesSelected =
-    discountRule.discountedServicesPackage.every((x) =>
-      selectedServices.includes(x)
-    );
-
-  if (!allDiscountedServicesSelected) {
-    return false;
-  }
-
-  const anyRequiredServiceSelected =
-    !discountRule.anyServicesRequiredForDiscount?.length ||
-    discountRule.anyServicesRequiredForDiscount.some((x) => selectedServices.includes(x));
-
-  return anyRequiredServiceSelected;
+  return discountRule.servicesPackage.every((x) =>
+    selectedServices.includes(x)
+  );
 };
 
-const getServicesPackageMapKey = (discountRule: DiscountRule) =>
-  discountRule.discountedServicesPackage.sort().join("__");
-
-const calculateDiscountForServicesPackage = (
-  discountRule: DiscountRule,
-  servicesPackagesDiscount: Map<string, number>
-) => {
-  const discountedServicesPackageKey = getServicesPackageMapKey(discountRule);
-  const discountForServicesPackage =
-    servicesPackagesDiscount.get(discountedServicesPackageKey) ?? 0;
-
-  if (discountRule.discount > discountForServicesPackage) {
-    servicesPackagesDiscount.set(
-      discountedServicesPackageKey,
-      discountRule.discount
-    );
-  }
-};
-
-const sumDiscounts = (discountsMap: Map<string, number>) => {
+const sumDiscounts = (discounts: ServicesPackageDiscounts) => {
   let totalDiscount = 0;
-  discountsMap.forEach((discount, _) => (totalDiscount += discount));
+  for (let [_, discount] of Object.entries(discounts)) {
+    totalDiscount += discount;
+  }
 
   return totalDiscount;
 };

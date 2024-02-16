@@ -1,42 +1,55 @@
 import { ServiceYear, ServiceYearDiscounts } from "../types";
 
-const discounts: Readonly<ServiceYearDiscounts> = {
+const discounts: ServiceYearDiscounts = {
     2020: [
       {
-        discountedServicesPackage: ["VideoRecording", "Photography"],
+        type: "PhotographyWithVideoRecording",
+        servicesPackage: ["Photography", "VideoRecording"],
         discount: 1200,
       },
       {
-        discountedServicesPackage: ["WeddingSession"],
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "VideoRecording"],
         discount: 300,
-        anyServicesRequiredForDiscount: ["Photography", "VideoRecording"],
+      },
+      {
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "Photography"],
+        discount: 300,
       },
     ],
     2021: [
       {
-        discountedServicesPackage: ["Photography", "VideoRecording"],
+        type: "PhotographyWithVideoRecording",
+        servicesPackage: ["Photography", "VideoRecording"],
         discount: 1300,
       },
       {
-        discountedServicesPackage: ["WeddingSession"],
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "VideoRecording"],
         discount: 300,
-        anyServicesRequiredForDiscount: ["Photography", "VideoRecording"],
+      },
+      {
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "Photography"],
+        discount: 300,
       },
     ],
     2022: [
       {
-        discountedServicesPackage: ["Photography", "VideoRecording"],
+        type: "PhotographyWithVideoRecording",
+        servicesPackage: ["Photography", "VideoRecording"],
         discount: 1300,
       },
       {
-        discountedServicesPackage: ["WeddingSession"],
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "VideoRecording"],
         discount: 300,
-        anyServicesRequiredForDiscount: ["VideoRecording"],
       },
       {
-        discountedServicesPackage: ["WeddingSession"],
+        type: "WeddingSession",
+        servicesPackage: ["WeddingSession", "Photography"],
         discount: 600,
-        anyServicesRequiredForDiscount: ["Photography"],
       },
     ],
   };

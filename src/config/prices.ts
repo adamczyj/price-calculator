@@ -1,6 +1,6 @@
 import { ServiceYear, ServiceYearPrices } from "../types";
 
-const prices: Readonly<ServiceYearPrices> = {
+const prices: ServiceYearPrices = {
     2020: {
       Photography: 1700,
       VideoRecording: 1700,

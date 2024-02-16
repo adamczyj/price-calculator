@@ -16,9 +16,11 @@ export type ServiceConfig = {
 };
 export type ServiceConfigs = Partial<Record<ServiceType, ServiceConfig>>;
 
+export type DiscountType = "WeddingSession" | "PhotographyWithVideoRecording";
 export type DiscountRule = {
-  discountedServicesPackage: ServiceType[];
+  type: DiscountType;
+  servicesPackage: ServiceType[];
   discount: number;
-  anyServicesRequiredForDiscount?: ServiceType[];
 };
 export type ServiceYearDiscounts = Partial<Record<ServiceYear, DiscountRule[]>>;
+export type ServicesPackageDiscounts = Partial<Record<DiscountType, number>>;
